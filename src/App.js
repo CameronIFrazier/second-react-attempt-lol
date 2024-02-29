@@ -2,12 +2,32 @@ import logo from './logo.svg';
 import './App.css';
 import "./styles.css"
 
+const ACTIONS={
+  ADD_DIGIT: 'add-digit',
+  CHOOSE_OPERATION: 'choose-operation',
+  CLEAR: 'clear',
+  DELETE_DIGIT: 'delete-digit',
+  EVALUATE:'evaluate'
+
+}
+
+function reducer(state,{type, payload}){
+switch(type){
+  case ACTIONS.ADD_DIGIT:
+    return{
+      ...state,
+      currentOperand: `${currentOperand}${payload.digit}`
+    }
+}
+}
+
 function App() {
+  const[{currentOperand, previousoperand, operation}, dispatch] = useReducer(reducer,{})
   return (
     <div className="calculator-grid">
       <div className="output">
-        <div className="previous-operand">123,234*</div>
-        <div className ="current-operand">123,234</div>
+        <div className="previous-operand">{previousOperand}{operation}</div>
+        <div className ="current-operand">{currentOperand}</div>
       </div>
       <button className="span-two">AC</button>
       <button>DEL</button>
