@@ -1,9 +1,9 @@
-
+import DigitButton from "./DigitButton"
 import { useReducer } from "react"
 import './App.css';
 import "./styles.css"
 
-const ACTIONS={
+ export const ACTIONS={
   ADD_DIGIT: 'add-digit',
   CHOOSE_OPERATION: 'choose-operation',
   CLEAR: 'clear',
@@ -17,24 +17,30 @@ switch(type){
   case ACTIONS.ADD_DIGIT:
     return{
       ...state,
-      currentOperand: `${currentOperand || ""}${payload.digit}`
+      currentOperand: `${state.currentOperand || ""}${payload.digit}`,
     }
 }
 }
 
+// eslint-disable-next-line no-undef
 function App() {
-  const[{currentOperand, previousOperand, operation}, dispatch] = useReducer(reducer,{})
+  const [{ currentOperand, previousOperand, operation }, dispatch] = useReducer(
+    reducer,
+     {}
+  )
 
-  dispatch({type: ACTIONS.ADD_DIGIT, payload: {digit: 1}})
+ 
   return (
     <div className="calculator-grid">
       <div className="output">
-        <div className="previous-operand">{previousOperand}{operation}</div>
+        <div className="previous-operand">
+          {previousOperand}{operation}
+          </div>
         <div className ="current-operand">{currentOperand}</div>
       </div>
       <button className="span-two">AC</button>
       <button>DEL</button>
-      <button>÷</button>
+      <DigitButton digit = "+" dispatch = {dispatch} ></DigitButton>
       <button>1</button>
       <button>2</button>
       <button>3</button>
